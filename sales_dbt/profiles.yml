@@ -8,7 +8,7 @@ sales_dbt:
       database: STARTER
       schema: SALES
       account: ''
-      user: ''
+      user: 'RIHITO_NAKAMURA'
     prod:
       type: snowflake
       role: RDTEAM
@@ -16,4 +16,4 @@ sales_dbt:
       database: STARTER
       schema: SALES
       account: ''
-      user: ''
+      user: 'RIHITO_NAKAMURA'
