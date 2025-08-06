@@ -9,7 +9,7 @@ sales_dbt:
       database: STARTER
       schema: SALES
       user: RIHITO_NAKAMURA
-      password: eyJraWQiOiIzMzUzNzY4MTg4MDI2OTQiLCJhbGciOiJFUzI1NiJ9.eyJwIjoiNTExNzQ0NDYyMTo1MTE3NDQ3MzAxIiwiaXNzIjoiU0Y6MTAxNyIsImV4cCI6MTc4NjAxNjcwOH0.zWKf3I3Y5SAqEwm4zxwyRkrPEe7m-OwPTyTjX97qMRc7ZH9Oo_I5n3McGezVFHxQdjg3HBcaXSaPHo0iTXPSpA
+      password: 
     prod:
       type: snowflake
       role: RDTEAM
