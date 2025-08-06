@@ -27,19 +27,16 @@ jobs:
           sudo apt-get update && sudo apt-get install -y git
 
       - name: Run dbt deps
-        run: |
-        export DBT_PROFILES_DIR=sales_dbt
-         dbt deps
+      working-directory: sales_dbt
+      run: dbt deps
 
       - name: Run dbt compile
-        run: |
-        export DBT_PROFILES_DIR=sales_dbt
-         dbt compile 
+      working-directory: sales_dbt
+      run: dbt compile 
 
       - name: Run dbt docs generate
-        run: |
-        export DBT_PROFILES_DIR=sales_dbt
-         dbt docs generate
+      working-directory: sales_dbt
+      run: dbt docs generate
 
     - name: Show repository structure before deploy
       run: |
