@@ -3,12 +3,13 @@ sales_dbt:
   outputs:
     dev:
       type: snowflake
+      account: EXTURE-PRACTICE 
       role: RDTEAM
       warehouse: NAKAMURA_WH
       database: STARTER
       schema: SALES
-      account: ''
-      user: 'RIHITO_NAKAMURA'
+      user: RIHITO_NAKAMURA
+      password: Rihito@Nakamura_123456
     prod:
       type: snowflake
       role: RDTEAM
