@@ -1,0 +1,8 @@
+sources:
+  - name: sales
+    schema: sales
+    tables:
+      - name: mst_product
+      - name: mst_customer
+      - name: raw_sales_stream
+      

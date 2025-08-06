@@ -1,0 +1,19 @@
+sales_dbt:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      role: RDTEAM
+      warehouse: NAKAMURA_WH
+      database: STARTER
+      schema: SALES
+      account: ''
+      user: ''
+    prod:
+      type: snowflake
+      role: RDTEAM
+      warehouse: NAKAMURA_WH
+      database: STARTER
+      schema: SALES
+      account: ''
+      user: ''

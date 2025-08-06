@@ -1,0 +1,44 @@
+name: Generate and Deploy dbt Docs to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # ← mainブランチ更新時に実行
+
+jobs:
+  dbt-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.10
+
+      - name: Install dbt
+        run: |
+          pip install dbt-core dbt-snowflake
+
+      - name: Install GitHub Pages dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y git
+
+      - name: Run dbt deps
+        run: dbt deps
+
+      - name: Run dbt compile
+        run: dbt compile --target prod
+
+      - name: Run dbt docs generate
+        run: dbt docs generate --target prod
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target
+          publish_branch: gh-pages
+          force_orphan: true
