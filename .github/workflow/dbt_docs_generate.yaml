@@ -40,5 +40,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: sales_dbt/target
-          publish_branch: gh-pages
+          publish_branch: main
           force_orphan: true
