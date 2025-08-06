@@ -35,6 +35,17 @@ jobs:
       - name: Run dbt docs generate
         run: dbt docs generate
 
+    - name: Show repository structure before deploy
+      run: |
+        echo "=== Current directory ==="
+        pwd
+        echo "=== List files (including hidden) ==="
+        ls -la
+        echo "=== List sales_dbt directory ==="
+        ls -la sales_dbt
+        echo "=== List sales_dbt/target directory ==="
+        ls -la sales_dbt/target
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
