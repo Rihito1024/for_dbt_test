@@ -26,10 +26,10 @@ jobs:
         run: dbt deps
 
       - name: Run dbt compile
-        run: dbt compile　--target prod
+        run: dbt compile　
 
       - name: Run dbt docs generate
-        run: dbt docs generate --target prod
+        run: dbt docs generate 
 
       - name: Upload dbt docs artifacts
         uses: actions/upload-artifact@v4
