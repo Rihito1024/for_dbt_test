@@ -1,4 +1,4 @@
-name: Generate dbt Docs and Download Artifacts
+name: Generate and Deploy dbt Docs to GitHub Pages
 
 on:
   push:
@@ -20,22 +20,25 @@ jobs:
 
       - name: Install dbt
         run: |
-          pip install dbt-core dbt-snowflake 
+          pip install dbt-core dbt-snowflake
+
+      - name: Install GitHub Pages dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y git
 
       - name: Run dbt deps
         run: dbt deps
 
       - name: Run dbt compile
-        run: dbt compile　
+        run: dbt compile --target prod
 
       - name: Run dbt docs generate
-        run: dbt docs generate 
+        run: dbt docs generate --target prod
 
-      - name: Upload dbt docs artifacts
-        uses: actions/upload-artifact@v4
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          name: dbt-docs
-          path: |
-            target/index.html
-            target/manifest.json
-            target/catalog.json
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: sales_dbt/target
+          publish_branch: gh-pages
+          force_orphan: true
