@@ -29,14 +29,20 @@ jobs:
       - name: Run dbt deps
       working-directory: sales_dbt
       run: dbt deps
-
+      
       - name: Run dbt compile
       working-directory: sales_dbt
-      run: dbt compile 
+      run: |
+        echo "=== Running dbt compile ==="
+        dbt compile
+        echo "=== dbt compile completed ==="
 
-      - name: Run dbt docs generate
-      working-directory: sales_dbt
-      run: dbt docs generate
+    - name: Run dbt docs generate
+    working-directory: sales_dbt
+      run: |
+        echo "=== Running dbt generate ==="
+        dbt compile
+        echo "=== dbt compile completed ==="
 
     - name: Show repository structure before deploy
       run: |
