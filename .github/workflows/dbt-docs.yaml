@@ -51,6 +51,9 @@ jobs:
           dbt docs generate
           ls -l target
 
+      - name: Check generated docs files
+        run: ls -l sales_dbt/target
+
       - name: Deploy docs to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
