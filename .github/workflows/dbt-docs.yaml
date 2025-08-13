@@ -24,8 +24,8 @@ jobs:
         env:
           PASSWORD: ${{ secrets.DBT_PASSWORD }}
         run: |
-          mkdir -p ~/.dbt
-          cat > ~/.dbt/profiles.yml <<-EOL
+          mkdir -p ./config/dbt
+          cat > ./config/dbt/profiles.yml <<-EOL
           my_project:
             target: dev
             outputs:
@@ -40,12 +40,13 @@ jobs:
                 schema: SALES
           EOL
 
-
       - name: Run dbt
+        env:
+          DBT_PROFILES_DIR: ./config/dbt   # ここでprofiles.ymlの場所を指定
         run: |
           cd sales_dbt
           dbt deps
-          dbt compile  
+          dbt compile
           dbt docs generate
 
       - name: Deploy docs to GitHub Pages
