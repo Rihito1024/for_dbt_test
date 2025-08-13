@@ -12,5 +12,9 @@ jobs:
         env:
           MY_SECRET: ${{ secrets.DBT_PASSWORD }}
         run: |
-          echo "Secret is $MY_SECRET"
-          # 実際にはechoしないでください。例示のみ
+          if [ -z "$MY_SECRET" ]; then
+            echo "Secret is empty"
+          else
+            echo "Secret is not empty"
+          fi
+
