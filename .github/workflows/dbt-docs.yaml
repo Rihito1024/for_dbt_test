@@ -34,6 +34,7 @@ jobs:
                 account: EXTURE-PRACTICE
                 user: RIHITO_NAKAMURA
                 password: $PASSWORD
+                client_session_keep_alive: True
                 role: RDTEAM
                 database: STARTER
                 warehouse: NAKAMURA_WH
@@ -48,6 +49,7 @@ jobs:
           dbt deps
           dbt compile
           dbt docs generate
+          ls -l target
 
       - name: Deploy docs to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
