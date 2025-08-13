@@ -23,20 +23,21 @@ jobs:
       - name: Overwrite profiles.yml
         run: |
           mkdir -p ~/.dbt
-          cat > ~/.dbt/profiles.yml <<EOL
-my_project:
-  target: dev
-  outputs:
-    dev:
-      type: snowflake
-      account: EXTURE-PRACTICE
-      user: RIHITO_NAKAMURA
-      password: ${{ secrets.DBT_PASSWORD }}
-      role: RDTEAM
-      database: STARTER
-      warehouse: NAKAMURA_WH
-      schema: SALES
-EOL
+          cat > ~/.dbt/profiles.yml <<-EOL
+            my_project:
+              target: dev
+              outputs:
+                dev:
+                  type: snowflake
+                  account: EXTURE-PRACTICE
+                  user: RIHITO_NAKAMURA
+                  password: ${{ secrets.DBT_PASSWORD }}
+                  role: RDTEAM
+                  database: STARTER
+                  warehouse: NAKAMURA_WH
+                  schema: SALES
+          EOL
+
 
       - name: Run dbt
         run: |
