@@ -32,8 +32,6 @@ jobs:
                 account: EXTURE-PRACTICE
                 user: RIHITO_NAKAMURA
                 password: ${{ secrets.DBT_PASSWORD }}
-                authenticator: username_password_mfa
-                client_session_keep_alive: True
                 role: RDTEAM
                 database: STARTER
                 warehouse: NAKAMURA_WH
