@@ -1,61 +1,56 @@
-name: Generate and Deploy dbt Docs to GitHub Pages
+name: dbt-docs
+
 on:
   push:
-    branches:
-      - main  # ← mainブランチ更新時に実行
+    branches: [ main ]
+  pull_request:
+
 jobs:
-  dbt-docs:
+  dbt-run:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
-      
+        uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'  # クォートで囲む
-      
+          python-version: "3.11"
+
       - name: Install dbt
+        run: pip install dbt-snowflake
+
+      - name: Overwrite profiles.yml
         run: |
-          pip install dbt-core dbt-snowflake
-      
-      - name: Install GitHub Pages dependencies
+          mkdir -p ~/.dbt
+          cat > ~/.dbt/profiles.yml <<EOL
+          my_project:
+            target: dev
+            outputs:
+              dev:
+                type: snowflake
+                account: EXTURE-PRACTICE
+                user: RIHITO_NAKAMURA
+                password: ${{ secrets.DBT_PASSWORD }}
+                authenticator: username_password_mfa
+                client_session_keep_alive: True
+                role: RDTEAM
+                database: STARTER
+                warehouse: NAKAMURA_WH
+                schema: SALES
+          EOL
+
+      - name: Run dbt
         run: |
-          sudo apt-get update && sudo apt-get install -y git
-      
-      - name: Run dbt deps
-        working-directory: sales_dbt
-        run: dbt deps
-      
-      - name: Run dbt compile
-        working-directory: sales_dbt
-        run: |
-          echo "=== Running dbt compile ==="
-          dbt compile
-          echo "=== dbt compile completed ==="
-      
-      - name: Run dbt docs generate
-        working-directory: sales_dbt
-        run: |
-          echo "=== Running dbt docs generate ==="
+          dbt deps
+          dbt compile  
           dbt docs generate
-          echo "=== dbt docs generate completed ==="
-      
-      - name: Show repository structure before deploy
-        run: |
-          echo "=== Current directory ==="
-          pwd
-          echo "=== List files (including hidden) ==="
-          ls -la
-          echo "=== List sales_dbt directory ==="
-          ls -la sales_dbt
-          echo "=== List sales_dbt/target directory ==="
-          ls -la sales_dbt/target
-      
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+
+      - name: Deploy docs to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: sales_dbt/target
+          publish_dir: ./target
           publish_branch: gh-pages
-          force_orphan: true
+          keep_files: true
+          enable_jekyll: false
