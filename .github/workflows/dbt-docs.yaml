@@ -42,7 +42,7 @@ jobs:
 
       - name: Run dbt
         env:
-          DBT_PROFILES_DIR: ./config/dbt   # ここでprofiles.ymlの場所を指定
+          DBT_PROFILES_DIR: ../config/dbt   # ここでprofiles.ymlの場所を指定
         run: |
           cd sales_dbt
           dbt deps
