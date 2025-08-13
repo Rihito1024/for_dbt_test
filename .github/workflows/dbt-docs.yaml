@@ -42,6 +42,7 @@ jobs:
 
       - name: Run dbt
         run: |
+          cd sales_dbt
           dbt deps
           dbt compile  
           dbt docs generate
