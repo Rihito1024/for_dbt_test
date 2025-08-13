@@ -21,6 +21,8 @@ jobs:
         run: pip install dbt-snowflake
 
       - name: Overwrite profiles.yml
+        env:
+          PASSWORD: ${{ secrets.DBT_PASSWORD }}
         run: |
           mkdir -p ~/.dbt
           cat > ~/.dbt/profiles.yml <<-EOL
@@ -31,7 +33,7 @@ jobs:
                   type: snowflake
                   account: EXTURE-PRACTICE
                   user: RIHITO_NAKAMURA
-                  password: ${{ secrets.DBT_PASSWORD }}
+                  password: $PASSWORD
                   role: RDTEAM
                   database: STARTER
                   warehouse: NAKAMURA_WH
